@@ -1,6 +1,6 @@
 import React from 'react'
 import './ComponentCss/chatBar.css'
-
+import ChatRoom from './chatRoom.js'
 const ChatBar = () => {
   
   return (
@@ -8,13 +8,12 @@ const ChatBar = () => {
         <div className='appName'> <h2 >ChatBot simple</h2> </div> 
         <ul className='history'>
           <nav>
-            sads
+          <ChatRoom/>
           </nav> 
         </ul>
         <button className='addChat'  >+ New Chat</button>
     </div>
   )
 }
-
 export default ChatBar; 
 
