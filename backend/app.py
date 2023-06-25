@@ -24,6 +24,31 @@ def create_chat():
     chat_id = chats_collection.insert_one(data).inserted_id
     return jsonify({'message': 'Chat created successfully', 'chat_id': str(chat_id)}), 201
 
+@app.route('/sendMessage/<chatId>', methods = ['POST'])
+def send_message(chatId):
+    data = request.get_json()
+
+    message = {
+        "id" : ObjectId(),
+        "chat_id" : data.get("chat_id"), 
+        "is_user":  data.get("is_user"),
+        "date_created" : datetime.now(),
+        "content":  data.get("content"),
+        "has_file": data.get("has_file"), 
+        "file_path": data.get("file_path")
+    } 
+
+    result = chats_collection.update_one(
+        {'_id': ObjectId(chatId)},
+        {'$push': {'messages': message}}
+    )
+
+    if result.modified_count > 0:
+        return jsonify({'message': 'Message added successfully'}), 201
+    else:
+        return jsonify({'message': 'Failed to add message'}), 400
+    
+    
 @app.route('/getchat', methods=['GET'])
 def get_chat_list():
     # Retrieve the list of chats from the database
@@ -47,6 +72,7 @@ def get_chat(chat_id):
         return jsonify(chat)
     else:
         return jsonify({'error': 'Chat not found'}), 404
+     
     
 @app.route('/change_icon/<chat_id>', methods=['POST'])
 def change_chat_icon(chat_id):
