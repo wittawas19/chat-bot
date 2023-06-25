@@ -30,7 +30,7 @@ def send_message(chatId):
     message = {
         "id" : ObjectId(),
         "chat_id" : data.get("chat_id"), 
-        "order_num":  data.get("order_num"),
+        "is_user":  data.get("is_user"),
         "date_created" : datetime.now(),
         "content":  data.get("content"),
         "has_file": data.get("has_file"), 
