@@ -71,6 +71,7 @@ def get_chat(chat_id):
         return jsonify(chat)
     else:
         return jsonify({'error': 'Chat not found'}), 404
+     
     
 if __name__ == '__main__':
     app.run(debug=True)
