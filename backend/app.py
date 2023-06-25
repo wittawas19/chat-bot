@@ -46,6 +46,8 @@ def send_message(chatId):
         return jsonify({'message': 'Message added successfully'}), 201
     else:
         return jsonify({'message': 'Failed to add message'}), 400
+    
+    
 @app.route('/getchat', methods=['GET'])
 def get_chat_list():
     # Retrieve the list of chats from the database
