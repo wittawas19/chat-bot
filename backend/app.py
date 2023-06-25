@@ -38,6 +38,14 @@ def send_message(chatId):
         "file_path": data.get("file_path")
     } 
 
+    text = data.get("content")
+    if text == "Hello" :
+        response = "Hello I'm Simple Chatbot"
+    elif text == "Weather" : 
+        response =  "It's good day to walk on street"
+    elif text == "Date" : 
+        response = datetime.now()
+
     result = chats_collection.update_one(
         {'_id': ObjectId(chatId)},
         {'$push': {'messages': message}}
