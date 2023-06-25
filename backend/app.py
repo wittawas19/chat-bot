@@ -23,7 +23,7 @@ def create_chat():
     chat_id = chats_collection.insert_one(data).inserted_id
     return jsonify({'message': 'Chat created successfully', 'chat_id': str(chat_id)}), 201
 
-@app.route('/sendMessage', methods = ['POST'])
+@app.route('/sendMessage/<chatId>', methods = ['POST'])
 def send_message(chatId):
     data = request.get_json()
 
