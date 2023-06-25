@@ -3,6 +3,8 @@ import os
 from flask import Flask, jsonify, request
 from pymongo import MongoClient
 from bson import ObjectId
+import json
+from flask_cors import CORS
 
 app = Flask(__name__)
 
@@ -13,6 +15,18 @@ chats_collection = db['chatRoom']
 message_collection = db['message']
 
 app = Flask(__name__)
+CORS(app)
+
+class JSONEncoder(json.JSONEncoder):
+    def default(self, o):
+        if isinstance(o, ObjectId):
+            return str(o)
+        
+        elif isinstance(self,datetime): 
+            return str(o)
+
+        return json.JSONEncoder.default(self, o)
+
 @app.route("/")
 def hello():
     return "Hello World!"
@@ -20,9 +34,9 @@ def hello():
 @app.route('/addChat', methods=['POST'])
 def create_chat():
     data = request.get_json()
-    data['date_created'] = datetime.now()  # Set the date_created field with the current date and time
+    data['date_created'] = str(datetime.now())
     chat_id = chats_collection.insert_one(data).inserted_id
-    return jsonify({'message': 'Chat created successfully', 'chat_id': str(chat_id)}), 201
+    return jsonify({'message': 'Chat created successfully', '_id': str(chat_id)}), 201
 
 @app.route('/sendMessage/<chatId>', methods = ['POST'])
 def send_message(chatId):
@@ -49,17 +63,17 @@ def send_message(chatId):
         return jsonify({'message': 'Failed to add message'}), 400
     
     
-@app.route('/getchat', methods=['GET'])
+@app.route('/getchat',methods=['GET'])
 def get_chat_list():
     # Retrieve the list of chats from the database
     chat_list = list(chats_collection.find())
+    
+    chat = JSONEncoder().encode(chat_list)
 
-    for chat in chat_list:
-        chat['_id'] = str(chat['_id'])
     # Return the response as JSON
-    return jsonify(chat_list)
+    return jsonify(chat)
 
-@app.route('/getchatbyid/<chat_id>')
+@app.route('/getchatbyid/<chat_id>' ,methods=['GET'])
 def get_chat(chat_id):
     # Retrieve the chat from the database based on the chat_id
     chat = chats_collection.find_one({'_id': ObjectId(chat_id)})

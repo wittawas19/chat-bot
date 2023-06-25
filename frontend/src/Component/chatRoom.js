@@ -1,8 +1,22 @@
-import React from "react"
+
 import './ComponentCss/chatRoom.css'
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+
+const link = "http://127.0.0.1:5000/getchat"
 
 const ChatRoom= () => {
-  
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    axios.get(link)
+      .then(response => {
+        setData(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+      });
+  }, []);
     return (
       <div className="ChatRoomBox">
         <div className="ChatRoomIcon"> 
@@ -14,7 +28,7 @@ const ChatRoom= () => {
         {/* end icon code */}
         </div>
         <div className="ChatRoomName">
-          ChatRoom 1 from chatRoomasdasdas
+           
         </div>
       </div>
     )
