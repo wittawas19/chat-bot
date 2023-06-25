@@ -1,4 +1,5 @@
 from datetime import datetime
+import os
 from flask import Flask, jsonify, request
 from pymongo import MongoClient
 from bson import ObjectId
@@ -72,6 +73,36 @@ def get_chat(chat_id):
     else:
         return jsonify({'error': 'Chat not found'}), 404
      
+    
+@app.route('/change_icon/<chat_id>', methods=['POST'])
+def change_chat_icon(chat_id):
+    # Check if the chat exists
+    chat = chats_collection.find_one({'_id': ObjectId(chat_id)})
+    if not chat:
+        return jsonify({'error': 'Chat not found'}), 404
+
+    # Retrieve the uploaded image file
+    if 'file' not in request.files:
+        return jsonify({'error': 'No file provided'}), 400
+
+    file = request.files['file']
+
+    # Perform any necessary validations on the file, such as checking the file extension or size
+
+    # Get the file extension from the original filename
+    _, file_extension = os.path.splitext(file.filename)
+
+    save_directory = f'image'
+    os.makedirs(save_directory, exist_ok=True)
+
+    # Save the image file with the original file extension
+    file_path = f'{save_directory}/{chat_id}{file_extension}'
+    file.save(file_path)
+
+    # Update the chat document with the new icon_path
+    chats_collection.update_one({'_id': ObjectId(chat_id)}, {'$set': {'icon_path': file_path}})
+
+    return jsonify({'message': 'Chat icon updated successfully'})
     
 if __name__ == '__main__':
     app.run(debug=True)
