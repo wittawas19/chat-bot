@@ -1,6 +1,8 @@
 import React from 'react'
 import './ComponentCss/chatBar.css'
 import ChatRoom from './chatRoom.js'
+
+
 const ChatBar = () => {
   
   return (
