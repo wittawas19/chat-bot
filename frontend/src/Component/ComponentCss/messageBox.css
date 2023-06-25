@@ -1,0 +1,50 @@
+.message{
+    display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+.chat-title{
+    
+    width: 80vw;
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    
+    
+} 
+.chat-name-text{
+    background-color: #353740 ;
+    
+    text-align: center;
+    width: 90%;
+    margin-top: 10px;
+    padding-top: 5px;
+    height: 50px;
+}
+
+.send {
+    height: 40px;
+    width: 45px;
+} 
+.upload {
+    height: 40px;
+    width: 45px;
+} 
+.text-box {
+    margin-left: 10px;
+    margin-right: 10px;
+    height: 35px;
+    width: 80%;
+    background-color: #353740;
+    color: white;
+}
+.text-input {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+
+  }
+.bot-res{
+    height: calc(100% - 35px);
+} 

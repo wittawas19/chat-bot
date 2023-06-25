@@ -1,0 +1,34 @@
+.sidebar {
+    background-color: #202123;
+    height: 100vh;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    position: relative;
+
+    
+}
+
+.addChat {
+
+    background-color: #353740;
+    color: white;
+    border: white;
+    width: 100%;
+    height: 50px;
+    position: absolute;
+    bottom: 0;
+
+}
+.appName{
+    background-color: #353740;
+    display: flex;
+    justify-content: center;
+}
+h2{
+    color: white;
+}
+ul{
+    color: white;
+}
