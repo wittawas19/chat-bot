@@ -1,9 +1,24 @@
-import React from 'react'
-import './ComponentCss/messageBox.css'
-import Message from './message.js'
+import React, { useEffect } from 'react';
+import './ComponentCss/messageBox.css';
+import Message from './message.js';
+import axios from 'axios';
 
 const MessageBox = () => {
+  useEffect(() => {
+    fetchData();
+  }, []);
 
+  const link = "http://localhost:5000/"
+
+  const fetchData = async () => {
+    try {
+      const response = await axios.get( link + '');
+      const data = response.data;
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
   const handleSubmit = (e) => {
     e.preventDefault()
     console.log(e.target[1].value)

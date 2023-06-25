@@ -6,8 +6,6 @@
     flex-direction: column;
     justify-content: flex-start;
     position: relative;
-
-    
 }
 
 .addChat {
@@ -31,4 +29,5 @@ h2{
 }
 ul{
     color: white;
+    padding-right: .5em;
 }
