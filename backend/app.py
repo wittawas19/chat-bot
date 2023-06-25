@@ -1,3 +1,4 @@
+import datetime
 from flask import Flask, jsonify, request
 from pymongo import MongoClient
 from bson import ObjectId, ISODate
@@ -25,7 +26,7 @@ def send_message(chatId):
         "id" : ObjectId(),
         "chat_id" : data.get("chat_id"), 
         "order_num":  data.get("order_num"),
-        "date_created" : ISODate(),
+        "date_created" : datetime.now(),
         "content":  data.get("content"),
         "has_file": data.get("has_file"), 
         "file_path": data.get("file_path")
