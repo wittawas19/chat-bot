@@ -2,8 +2,7 @@ import React from "react"
 import './ComponentCss/chatRoom.css'
 
 const ChatRoom= () => {
-  
-    return (
+return (
       <div className="ChatRoomBox">
         <div className="ChatRoomIcon"> 
         {/* start icon code */}

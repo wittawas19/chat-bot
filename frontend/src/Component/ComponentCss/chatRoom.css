@@ -1,11 +1,15 @@
 .ChatRoomBox{
     border-radius: 10px;
-    border: 1px solid red;
+    /* border: 1px solid red; */
     height: 3em;
     vertical-align:middle;
     display: flex;
     align-items: center;
-    
+    margin-bottom: 1.5em;
+}
+.ChatRoomBox:hover{
+    background-color: #353740;
+    cursor: pointer;
 }
 .ChatRoomIcon{
     height: 1.5em;
